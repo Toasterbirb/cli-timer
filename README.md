@@ -15,6 +15,10 @@ toasterbirb@tux ~/git/cli-timer $ ./timer -h 1 -m 5 -s 25
 01:05:18
 ```
 
+If CLI-Timer was built with notification support, you can use the `-t` flag to set a custom notification text.
+
+Help page can be shown with `--help`
+
 ## Dependencies
 - libnotify [optional]
 
