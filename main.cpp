@@ -16,6 +16,7 @@ int hours = 0;
 #ifndef NO_NOTIFY
 void TimeUpNotification();
 std::string notificationText = "Time is up";
+bool showNotification = true;
 #endif
 
 int main(int argc, char** argv)
@@ -43,25 +44,35 @@ int main(int argc, char** argv)
 				seconds = atoi(argv[i + 1]);
 			}
 
+#ifndef NO_NOTIFY
 			/* Notification properties */
 			if (strcmp(argv[i], "-t") == 0)
 			{
-#ifndef NO_NOTIFY
 				notificationText = argv[i + 1];
-#else
-				std::cout << "CLI-Timer wasn't compiled with libnotify support. All notification related args will be ignored" << std::endl;
-#endif /* NO_NOTIFY */
 			}
+
+			if (strcmp(argv[i], "--no-notify") == 0)
+			{
+				showNotification = false;
+			}
+#endif /* NO_NOTIFY */
 		}
 	}
 	else if (argc == 2 && strcmp(argv[1], "--help") == 0)
 	{
+#ifndef NO_NOTIFY
+		std::cout << "Usage: ./timer [--no-notify] [options]\n\n" <<
+#else
 		std::cout << "Usage: ./timer [options]\n\n" <<
+#endif /* NO_NOTIFY */
 			"Options:\n" <<
 			"  -s [seconds]\n" <<
 			"  -m [minutes]\n" <<
 			"  -h [hours]\n" <<
+#ifndef NO_NOTIFY
+			"  --no-notify\t\tDon't show any notifications when the time is up\n" <<
 			"  -t [notification]\tCustom notification text\n" <<
+#endif /* NO_NOTIFY */
 			"  --help\t\tShows this text wall that your are reading right now " << std::endl;
 
 		/* No need to do anything else */
@@ -85,7 +96,8 @@ int main(int argc, char** argv)
 	}
 
 #ifndef NO_NOTIFY
-	TimeUpNotification();
+	if (showNotification)
+		TimeUpNotification();
 #endif
 
 	return 0;
