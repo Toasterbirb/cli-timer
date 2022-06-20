@@ -13,9 +13,9 @@ int seconds = 0;
 int minutes = 0;
 int hours = 0;
 
-/* Function declarations */
 #ifndef NO_NOTIFY
 void TimeUpNotification();
+std::string notificationText = "Time is up";
 #endif
 
 int main(int argc, char** argv)
@@ -42,6 +42,14 @@ int main(int argc, char** argv)
 			{
 				seconds = atoi(argv[i + 1]);
 			}
+
+#ifndef NO_NOTIFY
+			/* Notification properties */
+			if (strcmp(argv[i], "-t") == 0)
+			{
+				notificationText = argv[i + 1];
+			}
+#endif /* NO_NOTIFY */
 		}
 	}
 
@@ -72,7 +80,7 @@ int main(int argc, char** argv)
 void TimeUpNotification()
 {
 	notify_init("CLI-Timer");
-	NotifyNotification* n = notify_notification_new("CLI Timer", "Time is up", 0);
+	NotifyNotification* n = notify_notification_new("CLI Timer", notificationText.c_str(), 0);
 	notify_notification_set_timeout(n, 5000);
 
 	if (!notify_notification_show(n, 0))
