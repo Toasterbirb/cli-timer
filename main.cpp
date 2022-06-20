@@ -43,14 +43,29 @@ int main(int argc, char** argv)
 				seconds = atoi(argv[i + 1]);
 			}
 
-#ifndef NO_NOTIFY
 			/* Notification properties */
 			if (strcmp(argv[i], "-t") == 0)
 			{
+#ifndef NO_NOTIFY
 				notificationText = argv[i + 1];
-			}
+#else
+				std::cout << "CLI-Timer wasn't compiled with libnotify support. All notification related args will be ignored" << std::endl;
 #endif /* NO_NOTIFY */
+			}
 		}
+	}
+	else if (argc == 2 && strcmp(argv[1], "--help") == 0)
+	{
+		std::cout << "Usage: ./timer [options]\n\n" <<
+			"Options:\n" <<
+			"  -s [seconds]\n" <<
+			"  -m [minutes]\n" <<
+			"  -h [hours]\n" <<
+			"  -t [notification]\tCustom notification text\n" <<
+			"  --help\t\tShows this text wall that your are reading right now " << std::endl;
+
+		/* No need to do anything else */
+		return 0;
 	}
 
 	targetTime = hours * 3600 + minutes * 60 + seconds;
