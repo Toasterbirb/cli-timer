@@ -8,5 +8,8 @@ INC=-I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/gdk-pixbu
 all:
 	${CXX} ${CXXFLAGS} ${INC} -l${LIBS} ${SRC} -o ${BIN}
 
+no-notify:
+	${CXX} -DNO_NOTIFY ${CXXFLAGS} ${SRC} -o ${BIN}
+
 clean:
 	rm ${BIN}

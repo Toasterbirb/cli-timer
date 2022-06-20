@@ -16,7 +16,7 @@ toasterbirb@tux ~/git/cli-timer $ ./timer -h 1 -m 5 -s 25
 ```
 
 ## Dependencies
-- libnotify (shows a desktop notification when time is up)
+- libnotify [optional]
 
 ## Compiling
-Simply run `make`
+Simply run `make` or `make no-notify` if you don't want desktop notifications when the time is up.

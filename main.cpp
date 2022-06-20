@@ -1,4 +1,7 @@
+#ifndef NO_NOTIFY
 #include <libnotify/notify.h>
+#endif
+
 #include <iostream>
 #include <thread>
 #include <string.h>
@@ -11,7 +14,9 @@ int minutes = 0;
 int hours = 0;
 
 /* Function declarations */
+#ifndef NO_NOTIFY
 void TimeUpNotification();
+#endif
 
 int main(int argc, char** argv)
 {
@@ -56,11 +61,14 @@ int main(int argc, char** argv)
 		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
 
+#ifndef NO_NOTIFY
 	TimeUpNotification();
+#endif
 
 	return 0;
 }
 
+#ifndef NO_NOTIFY
 void TimeUpNotification()
 {
 	notify_init("CLI-Timer");
@@ -72,3 +80,4 @@ void TimeUpNotification()
 		std::cout << "Notification wasn't shown properly" << std::endl;
 	}
 }
+#endif /* NO_NOTIFY */
