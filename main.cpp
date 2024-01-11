@@ -58,7 +58,7 @@ int main(int argc, char** argv)
 #endif /* NO_NOTIFY */
 		}
 	}
-	else if (argc == 2 && strcmp(argv[1], "--help") == 0)
+	else
 	{
 #ifndef NO_NOTIFY
 		std::cout << "Usage: ./timer [--no-notify] [options]\n\n" <<
@@ -71,9 +71,8 @@ int main(int argc, char** argv)
 			"  -h [hours]\n" <<
 #ifndef NO_NOTIFY
 			"  --no-notify\t\tDon't show any notifications when the time is up\n" <<
-			"  -t [notification]\tCustom notification text\n" <<
+			"  -t [notification]\tCustom notification text\n";
 #endif /* NO_NOTIFY */
-			"  --help\t\tShows this text wall that your are reading right now " << std::endl;
 
 		/* No need to do anything else */
 		return 0;
